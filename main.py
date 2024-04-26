@@ -29,8 +29,8 @@ while cap.isOpened():
     # 결과를 화면에 표시합니다.
     cv2.imshow('Face Mesh', frame)
 
-    # 'q' 키를 누르면 종료합니다.
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    # 'esc' 키를 누르면 종료합니다.
+    if cv2.waitKey(1) == 27:  # 27은 'esc' 키의 ASCII 코드입니다.
         break
 
 # 자원을 정리하고 창을 닫습니다.
