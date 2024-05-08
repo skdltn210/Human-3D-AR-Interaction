@@ -28,6 +28,44 @@
           });
         };
 
+        const canvasContainers = document.querySelectorAll(".canvas-container");
+        canvasContainers.forEach((container, index) => {
+          container.addEventListener("click", function () {
+            // Remove selected class from all canvas containers
+            canvasContainers.forEach((c) => c.classList.remove("selected"));
+            // Add selected class to the clicked container
+            container.classList.add("selected");
+
+            // Toggle visibility logic here
+            toggleVisibility(index);
+          });
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const list = ["japaneseMask", "jokerMask", "vendettaMask", "gorillaFace", "tutankhamunMask"];
+        const visibles = [false, false, false, false, false];
+
+        const toggleVisibility = (index) => {
+          visibles[index] = !visibles[index];
+          visibles.forEach((visible, i) => {
+            const button = document.querySelector("#" + list[i]);
+            const entities = document.querySelectorAll("." + list[i] + "-entity");
+            if (i === index) {
+              button.classList.toggle("selected");
+              entities.forEach((entity) => {
+                entity.setAttribute("visible", visible);
+              });
+            } else if (visible) {
+              button.classList.remove("selected");
+              entities.forEach((entity) => {
+                entity.setAttribute("visible", false);
+              });
+              visibles[i] = false;
+            }
+          });
+        };
+
         list.forEach((item, index) => {
           const button = document.querySelector("#" + item);
           button.addEventListener("click", () => {
@@ -41,8 +79,7 @@
         margin: 0;
       }
       .example-container {
-        overflow: hidden;
-        position: absolute;
+        position: relative;
         width: 100%;
         height: 100%;
       }
@@ -52,14 +89,18 @@
         top: 0;
         z-index: 2;
       }
-      .options-panel img {
-        border: solid 2px;
-        width: 50px;
-        height: 50px;
+      .canvas-container {
+        margin: 5px;
+      }
+      .canvas-container canvas {
+        border: solid 5px;
+        width: 120px;
+        height: 120px;
         object-fit: cover;
         cursor: pointer;
+        display: block;
       }
-      .options-panel img.selected {
+      .canvas-container.selected canvas {
         border-color: green;
       }
     </style>
@@ -67,11 +108,21 @@
   <body>
     <div class="example-container">
       <div class="options-panel">
-        <img id="japaneseMask" src="public/japanese_mask.png" />
-        <img id="jokerMask" src="public/joker_mask.png" />
-        <img id="vendettaMask" src="public/vendetta_mask.png" />
-        <img id="gorillaFace" src="public/gorilla_face.png" />
-        <img id="tutankhamunMask" src="public/tutankhamun_mask.png" />
+        <div class="canvas-container" id="japaneseMask">
+          <canvas id="canvas"></canvas>
+        </div>
+        <div class="canvas-container" id="jokerMask">
+          <canvas id="canvas2"></canvas>
+        </div>
+        <div class="canvas-container" id="vendettaMask">
+          <canvas id="canvas3"></canvas>
+        </div>
+        <div class="canvas-container" id="gorillaFace">
+          <canvas id="canvas4"></canvas>
+        </div>
+        <div class="canvas-container" id="tutankhamunMask">
+          <canvas id="canvas5"></canvas>
+        </div>
       </div>
       <a-scene
         mindar-face
@@ -142,5 +193,129 @@
         </a-entity>
       </a-scene>
     </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+          "GLTFLoader": "https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import { GLTFLoader } from "GLTFLoader";
+      import * as THREE from "three";
+
+      let scene = new THREE.Scene();
+      let renderer = new THREE.WebGLRenderer({ canvas: document.querySelector("#canvas"), antialias: true });
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      scene.background = new THREE.Color(0x000000);
+
+      let light = new THREE.DirectionalLight(0xffffff, 100);
+      scene.add(light);
+
+      let camera = new THREE.PerspectiveCamera(30, 1);
+      camera.position.set(0, 0, 6);
+
+      let loader = new GLTFLoader();
+      loader.load("public/japanese_mask.glb", (gltf) => {
+        scene.add(gltf.scene);
+        function animate() {
+          requestAnimationFrame(animate);
+          gltf.scene.rotation.y += 0.018;
+          renderer.render(scene, camera);
+        }
+        animate();
+      });
+
+      let scene2 = new THREE.Scene();
+      let renderer2 = new THREE.WebGLRenderer({ canvas: document.querySelector("#canvas2"), antialias: true });
+      renderer2.outputEncoding = THREE.sRGBEncoding;
+      scene2.background = new THREE.Color(0x000000);
+      let light2 = new THREE.DirectionalLight(0xffffff, 100);
+      scene2.add(light2);
+      let camera2 = new THREE.PerspectiveCamera(30, 1);
+      camera2.position.set(0, 0, 7);
+      let loader2 = new GLTFLoader();
+      loader2.load("public/joker_mask.glb", (gltf) => {
+        scene2.add(gltf.scene);
+        const bbox = new THREE.Box3().setFromObject(gltf.scene);
+        const center = bbox.getCenter(new THREE.Vector3());
+        gltf.scene.position.sub(center);
+        gltf.scene.position.y -= 0.15;
+        function animate() {
+          requestAnimationFrame(animate);
+          gltf.scene.rotation.y += 0.018;
+          renderer2.render(scene2, camera2);
+        }
+        animate();
+      });
+
+      let scene3 = new THREE.Scene();
+      let renderer3 = new THREE.WebGLRenderer({ canvas: document.querySelector("#canvas3"), antialias: true });
+      renderer3.outputEncoding = THREE.sRGBEncoding;
+      scene3.background = new THREE.Color(0x000000);
+      let light3 = new THREE.DirectionalLight(0xffffff, 100);
+      scene3.add(light3);
+      let camera3 = new THREE.PerspectiveCamera(10, 1);
+      camera3.position.set(0, 0, 8);
+      let loader3 = new GLTFLoader();
+      loader3.load("public/vendetta_mask.glb", (gltf) => {
+        scene3.add(gltf.scene);
+        const bbox = new THREE.Box3().setFromObject(gltf.scene);
+        const center = bbox.getCenter(new THREE.Vector3());
+        gltf.scene.position.sub(center);
+        gltf.scene.position.z += 1;
+        function animate() {
+          requestAnimationFrame(animate);
+          gltf.scene.rotation.y += 0.018;
+          renderer3.render(scene3, camera3);
+        }
+        animate();
+      });
+
+      let scene4 = new THREE.Scene();
+      let renderer4 = new THREE.WebGLRenderer({ canvas: document.querySelector("#canvas4"), antialias: true });
+      renderer4.outputEncoding = THREE.sRGBEncoding;
+      scene4.background = new THREE.Color(0x000000);
+      let light4 = new THREE.DirectionalLight(0xffffff, 100);
+      scene4.add(light4);
+      let camera4 = new THREE.PerspectiveCamera(10, 1);
+      camera4.position.set(0, 0, 170);
+      let loader4 = new GLTFLoader();
+      loader4.load("public/gorilla_face.glb", (gltf) => {
+        const bbox = new THREE.Box3().setFromObject(gltf.scene);
+        const center = bbox.getCenter(new THREE.Vector3());
+        gltf.scene.position.sub(center);
+        gltf.scene.position.x += 8;
+        scene4.add(gltf.scene);
+        function animate() {
+          requestAnimationFrame(animate);
+          gltf.scene.rotation.y += 0.018;
+          renderer4.render(scene4, camera4);
+        }
+        animate();
+      });
+
+      let scene5 = new THREE.Scene();
+      let renderer5 = new THREE.WebGLRenderer({ canvas: document.querySelector("#canvas5"), antialias: true });
+      renderer5.outputEncoding = THREE.sRGBEncoding;
+      scene5.background = new THREE.Color(0x000000);
+      let light5 = new THREE.DirectionalLight(0xffffff, 100);
+      scene5.add(light5);
+      let camera5 = new THREE.PerspectiveCamera(10, 1);
+      camera5.position.set(0, 65, 1000);
+      let loader5 = new GLTFLoader();
+      loader5.load("public/tutankhamun_mask.glb", (gltf) => {
+        scene5.add(gltf.scene);
+        function animate() {
+          requestAnimationFrame(animate);
+          gltf.scene.rotation.y += 0.018;
+          renderer5.render(scene5, camera5);
+        }
+        animate();
+      });
+    </script>
   </body>
 </html>
