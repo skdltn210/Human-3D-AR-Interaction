@@ -4,6 +4,8 @@ This project utilizes OpenCV to detect human faces and apply 3D modeling to them
 
 ##
 
-npm install --global http-server
-http-server
+```
+npm install --global http-server 
+http-server 
 run 1.html
+```
