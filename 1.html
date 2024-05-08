@@ -5,25 +5,33 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const list = ["glasses1", "glasses2", "hat1", "hat2", "earring", "japaneseMask"];
-        const visibles = [false, false, false, false, false, false];
-        const setVisible = (button, entities, visible) => {
-          if (visible) {
-            button.classList.add("selected");
-          } else {
-            button.classList.remove("selected");
-          }
-          entities.forEach((entity) => {
-            entity.setAttribute("visible", visible);
+        const list = ["japaneseMask", "jokerMask", "vendettaMask", "gorillaFace"];
+        const visibles = [false, false, false, false];
+
+        const toggleVisibility = (index) => {
+          visibles[index] = !visibles[index];
+          visibles.forEach((visible, i) => {
+            const button = document.querySelector("#" + list[i]);
+            const entities = document.querySelectorAll("." + list[i] + "-entity");
+            if (i === index) {
+              button.classList.toggle("selected");
+              entities.forEach((entity) => {
+                entity.setAttribute("visible", visible);
+              });
+            } else if (visible) {
+              button.classList.remove("selected");
+              entities.forEach((entity) => {
+                entity.setAttribute("visible", false);
+              });
+              visibles[i] = false;
+            }
           });
         };
+
         list.forEach((item, index) => {
           const button = document.querySelector("#" + item);
-          const entities = document.querySelectorAll("." + item + "-entity");
-          setVisible(button, entities, visibles[index]);
           button.addEventListener("click", () => {
-            visibles[index] = !visibles[index];
-            setVisible(button, entities, visibles[index]);
+            toggleVisibility(index);
           });
         });
       });
@@ -59,27 +67,10 @@
   <body>
     <div class="example-container">
       <div class="options-panel">
-        <img
-          id="hat1"
-          src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/hat/thumbnail.png"
-        />
-        <img
-          id="hat2"
-          src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/hat2/thumbnail.png"
-        />
-        <img
-          id="glasses1"
-          src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/thumbnail.png"
-        />
-        <img
-          id="glasses2"
-          src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses2/thumbnail.png"
-        />
-        <img
-          id="earring"
-          src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/earring/thumbnail.png"
-        />
         <img id="japaneseMask" src="public/japanese_mask.png" />
+        <img id="jokerMask" src="public/joker_mask.png" />
+        <img id="vendettaMask" src="public/vendetta_mask.png" />
+        <img id="gorillaFace" src="public/gorilla_face.png" />
       </div>
       <a-scene
         mindar-face
@@ -90,103 +81,13 @@
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <a-asset-item
-            id="headModel"
-            src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/sparkar/headOccluder.glb"
-          ></a-asset-item>
-          <a-asset-item
-            id="glassesModel"
-            src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/scene.gltf"
-          ></a-asset-item>
-          <a-asset-item
-            id="glassesModel2"
-            src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses2/scene.gltf"
-          ></a-asset-item>
-          <a-asset-item
-            id="hatModel"
-            src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/hat/scene.gltf"
-          ></a-asset-item>
-          <a-asset-item
-            id="hatModel2"
-            src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/hat2/scene.gltf"
-          ></a-asset-item>
-          <a-asset-item
-            id="earringModel"
-            src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/earring/scene.gltf"
-          ></a-asset-item>
           <a-asset-item id="japaneseMaskModel" src="public/japanese_mask.glb"></a-asset-item>
+          <a-asset-item id="jokerMaskModel" src="public/joker_mask.glb"></a-asset-item>
+          <a-asset-item id="vendettaMaskModel" src="public/vendetta_mask.glb"></a-asset-item>
+          <a-asset-item id="gorillaFaceModel" src="public/gorilla_face.glb"></a-asset-item>
         </a-assets>
         <a-camera active="false" position="0 0 0"></a-camera>
         <!-- head occluder -->
-        <a-entity mindar-face-target="anchorIndex: 168">
-          <a-gltf-model
-            mindar-face-occluder
-            position="0 -0.3 0.15"
-            rotation="0 0 0"
-            scale="0.065 0.065 0.065"
-            src="#headModel"
-          ></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-face-target="anchorIndex: 10">
-          <a-gltf-model
-            rotation="0 -0 0"
-            position="0 1.0 -0.5"
-            scale="0.35 0.35 0.35"
-            src="#hatModel"
-            class="hat1-entity"
-            visible="false"
-          ></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-face-target="anchorIndex: 10">
-          <a-gltf-model
-            rotation="0 -0 0"
-            position="0 -0.2 -0.5"
-            scale="0.008 0.008 0.008"
-            src="#hatModel2"
-            class="hat2-entity"
-            visible="false"
-          ></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-face-target="anchorIndex: 168">
-          <a-gltf-model
-            rotation="0 -0 0"
-            position="0 0 0"
-            scale="0.01 0.01 0.01"
-            src="#glassesModel"
-            class="glasses1-entity"
-            visible="false"
-          ></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-face-target="anchorIndex: 168">
-          <a-gltf-model
-            rotation="0 -90 0"
-            position="0 -0.3 0"
-            scale="0.6 0.6 0.6"
-            src="#glassesModel2"
-            class="glasses2-entity"
-            visible="false"
-          ></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-face-target="anchorIndex: 127">
-          <a-gltf-model
-            rotation="-0.1 -0 0"
-            position="0 -0.3 -0.3"
-            scale="0.05 0.05 0.05"
-            src="#earringModel"
-            class="earring-entity"
-            visible="false"
-          ></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-face-target="anchorIndex: 356">
-          <a-gltf-model
-            rotation="0.1 -0 0"
-            position="0 -0.3 -0.3"
-            scale="0.05 0.05 0.05"
-            src="#earringModel"
-            class="earring-entity"
-            visible="false"
-          ></a-gltf-model>
-        </a-entity>
         <a-entity mindar-face-target="anchorIndex: 1">
           <a-gltf-model
             rotation="0 180 0"
@@ -194,6 +95,36 @@
             scale="1 1 1"
             src="#japaneseMaskModel"
             class="japaneseMask-entity"
+            visible="false"
+          ></a-gltf-model>
+        </a-entity>
+        <a-entity mindar-face-target="anchorIndex: 1">
+          <a-gltf-model
+            rotation="0 0 0"
+            position="0 0.15 0.1"
+            scale="0.85 0.85 0.85"
+            src="#jokerMaskModel"
+            class="jokerMask-entity"
+            visible="false"
+          ></a-gltf-model>
+        </a-entity>
+        <a-entity mindar-face-target="anchorIndex: 1">
+          <a-gltf-model
+            rotation="0 0 0"
+            position="0 -0.05 -0.85"
+            scale="2.3 2.3 2.3"
+            src="#vendettaMaskModel"
+            class="vendettaMask-entity"
+            visible="false"
+          ></a-gltf-model>
+        </a-entity>
+        <a-entity mindar-face-target="anchorIndex: 1">
+          <a-gltf-model
+            rotation="0 0 0"
+            position="0 0 -5"
+            scale="1 1 1"
+            src="#gorillaFaceModel"
+            class="gorillaFace-entity"
             visible="false"
           ></a-gltf-model>
         </a-entity>
