@@ -31,10 +31,14 @@
         const canvasContainers = document.querySelectorAll(".canvas-container");
         canvasContainers.forEach((container, index) => {
           container.addEventListener("click", function () {
+            // Check if the clicked container is already selected
+            const isSelected = container.classList.contains("selected");
             // Remove selected class from all canvas containers
             canvasContainers.forEach((c) => c.classList.remove("selected"));
-            // Add selected class to the clicked container
-            container.classList.add("selected");
+            // Add selected class to the clicked container if it's not already selected
+            if (!isSelected) {
+              container.classList.add("selected");
+            }
 
             // Toggle visibility logic here
             toggleVisibility(index);
