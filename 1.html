@@ -77,6 +77,11 @@
     <style>
       body {
         margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
       }
       .example-container {
         position: relative;
@@ -102,6 +107,17 @@
       }
       .canvas-container.selected canvas {
         border-color: green;
+      }
+      #video-container {
+        position: relative;
+        width: 1440px;
+        height: 1080px;
+        overflow: hidden;
+        margin-top: -183.5px; /* 1080px / 2 - (100vh / 2) */
+      }
+      #video-container img {
+        width: 100%;
+        height: auto;
       }
     </style>
   </head>
@@ -191,7 +207,17 @@
             visible="false"
           ></a-gltf-model>
         </a-entity>
+        <a-video
+          src="ws://127.0.0.1:8000/ws"
+          autoplay
+          loop
+          controls="false"
+          position="0 0 -2"
+          rotation="0 0 0"
+          scale="1 1 1"
+        ></a-video>
       </a-scene>
+      <div id="video-container"></div>
     </div>
 
     <script type="importmap">
@@ -316,6 +342,26 @@
         }
         animate();
       });
+
+      const videoContainer = document.getElementById("video-container");
+
+      const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+
+      ws.onopen = function (event) {
+        console.log("WebSocket 연결이 열렸습니다.");
+      };
+
+      ws.onmessage = function (event) {
+        const frameBase64 = event.data;
+        const img = document.createElement("img");
+        img.src = "data:image/jpeg;base64," + frameBase64;
+        videoContainer.innerHTML = ""; // 기존 이미지 제거
+        videoContainer.appendChild(img);
+      };
+
+      ws.onerror = function (event) {
+        console.error("WebSocket error observed:", event);
+      };
     </script>
   </body>
 </html>
