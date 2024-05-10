@@ -1,7 +1,7 @@
 import cv2
 import asyncio
 import base64
-import logging  # 로깅 모듈 추가
+import logging
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import StreamingResponse
 
@@ -12,11 +12,12 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # 웹캠 캡처 객체 생성
-cap = cv2.VideoCapture(1)  # 0은 기본 웹캠을 의미합니다. 여러 개의 카메라가 연결되어 있다면 0 대신 다른 숫자를 사용할 수 있습니다.
+cap = cv2.VideoCapture(1)
 
-# 웹캠 해상도 설정
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1440)
+# 웹캠 해상도 및 FPS 설정
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1440) 
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+cap.set(cv2.CAP_PROP_FPS, 15)  
 
 # 캡처 객체 초기화 확인
 if not cap.isOpened():
