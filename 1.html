@@ -42,6 +42,21 @@
 
             // Toggle visibility logic here
             toggleVisibility(index);
+
+            // Send index to server via WebSocket
+            const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+            ws.onopen = function (event) {
+              console.log("WebSocket 연결이 열렸습니다.");
+              // Send the index to the server
+              ws.send(index.toString());
+            };
+
+            ws.onerror = function (event) {
+              console.error("WebSocket error observed:", event);
+            };
+
+            // Close the WebSocket connection after sending the index
+            ws.close();
           });
         });
 
@@ -63,14 +78,8 @@
           console.error("WebSocket error observed:", event);
         };
       });
-
-      list.forEach((item, index) => {
-        const button = document.querySelector("#" + item);
-        button.addEventListener("click", () => {
-          toggleVisibility(index);
-        });
-      });
     </script>
+
     <style>
       body {
         margin: 0;
@@ -128,6 +137,17 @@
       #video-container img {
         width: 100%;
         height: auto;
+      }
+      img {
+        user-select: none;
+        -webkit-user-select: none;
+        /* (safari, chrome) browsers */
+        -moz-user-select: none;
+        /* mozilla browsers */
+        -khtml-user-select: none;
+        /* konqueror browsers */
+
+        -ms-user-select: none; /* IE10+ */
       }
     </style>
   </head>
@@ -207,8 +227,8 @@
         <a-entity mindar-face-target="anchorIndex: 1">
           <a-gltf-model
             rotation="0 0 0"
-            position="0 -0.55 -0.25"
-            scale="6 6 6"
+            position="-0.03 -0.58  -0.35"
+            scale="6.2 6.2 6.2"
             src="#guy_fawkesMaskModel"
             class="guy_fawkesMask-entity"
             visible="false"
