@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const list = ["japaneseMask", "jokerMask", "vendettaMask", "gorillaFace", "tutankhamunMask"];
+        const list = ["japaneseMask", "jokerMask", "guy_fawkesMask", "gorillaFace", "tutankhamunMask"];
         const visibles = [false, false, false, false, false];
 
         const toggleVisibility = (index) => {
@@ -47,7 +47,7 @@
       });
 
       document.addEventListener("DOMContentLoaded", function () {
-        const list = ["japaneseMask", "jokerMask", "vendettaMask", "gorillaFace", "tutankhamunMask"];
+        const list = ["japaneseMask", "jokerMask", "guy_fawkesMask", "gorillaFace", "tutankhamunMask"];
         const visibles = [false, false, false, false, false];
 
         const toggleVisibility = (index) => {
@@ -134,7 +134,7 @@
         <div class="canvas-container" id="jokerMask">
           <canvas id="canvas2"></canvas>
         </div>
-        <div class="canvas-container" id="vendettaMask">
+        <div class="canvas-container" id="guy_fawkesMask">
           <canvas id="canvas3"></canvas>
         </div>
         <div class="canvas-container" id="gorillaFace">
@@ -155,7 +155,7 @@
         <a-assets>
           <a-asset-item id="japaneseMaskModel" src="public/japanese_mask.glb"></a-asset-item>
           <a-asset-item id="jokerMaskModel" src="public/joker_mask.glb"></a-asset-item>
-          <a-asset-item id="vendettaMaskModel" src="public/vendetta_mask.glb"></a-asset-item>
+          <a-asset-item id="guy_fawkesMaskModel" src="public/guy_fawkes_mask.glb"></a-asset-item>
           <a-asset-item id="gorillaFaceModel" src="public/gorilla_face.glb"></a-asset-item>
           <a-asset-item id="tutankhamunMaskModel" src="public/tutankhamun_mask.glb"></a-asset-item>
         </a-assets>
@@ -164,7 +164,7 @@
         <a-entity mindar-face-target="anchorIndex: 1">
           <a-gltf-model
             rotation="0 180 0"
-            position="0 0.28 -0.35"
+            position="0 0.3 -0.35"
             scale="1 1 1"
             src="#japaneseMaskModel"
             class="japaneseMask-entity"
@@ -174,8 +174,8 @@
         <a-entity mindar-face-target="anchorIndex: 1">
           <a-gltf-model
             rotation="0 0 0"
-            position="0 0.15 0.1"
-            scale="0.85 0.85 0.85"
+            position="0 -0.54 -0.3"
+            scale="6 6 6"
             src="#jokerMaskModel"
             class="jokerMask-entity"
             visible="false"
@@ -184,10 +184,10 @@
         <a-entity mindar-face-target="anchorIndex: 1">
           <a-gltf-model
             rotation="0 0 0"
-            position="0 -0.05 -0.85"
-            scale="2.3 2.3 2.3"
-            src="#vendettaMaskModel"
-            class="vendettaMask-entity"
+            position="0 -0.55 -0.25"
+            scale="6 6 6"
+            src="#guy_fawkesMaskModel"
+            class="guy_fawkesMask-entity"
             visible="false"
           ></a-gltf-model>
         </a-entity>
@@ -266,7 +266,7 @@
       let light2 = new THREE.DirectionalLight(0xffffff, 100);
       scene2.add(light2);
       let camera2 = new THREE.PerspectiveCamera(30, 1);
-      camera2.position.set(0, 0, 7);
+      camera2.position.set(0, -0.15, 1);
       let loader2 = new GLTFLoader();
       loader2.load("public/joker_mask.glb", (gltf) => {
         scene2.add(gltf.scene);
@@ -289,9 +289,9 @@
       let light3 = new THREE.DirectionalLight(0xffffff, 100);
       scene3.add(light3);
       let camera3 = new THREE.PerspectiveCamera(10, 1);
-      camera3.position.set(0, 0, 8);
+      camera3.position.set(0, 0, 3.5);
       let loader3 = new GLTFLoader();
-      loader3.load("public/vendetta_mask.glb", (gltf) => {
+      loader3.load("public/guy_fawkes_mask.glb", (gltf) => {
         scene3.add(gltf.scene);
         const bbox = new THREE.Box3().setFromObject(gltf.scene);
         const center = bbox.getCenter(new THREE.Vector3());
