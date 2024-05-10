@@ -44,37 +44,30 @@
             toggleVisibility(index);
           });
         });
-      });
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const list = ["japaneseMask", "jokerMask", "guy_fawkesMask", "gorillaFace", "tutankhamunMask"];
-        const visibles = [false, false, false, false, false];
+        const dynamicImage = document.getElementById("dynamic-image");
+        const ws = new WebSocket("ws://127.0.0.1:8000/ws");
 
-        const toggleVisibility = (index) => {
-          visibles[index] = !visibles[index];
-          visibles.forEach((visible, i) => {
-            const button = document.querySelector("#" + list[i]);
-            const entities = document.querySelectorAll("." + list[i] + "-entity");
-            if (i === index) {
-              button.classList.toggle("selected");
-              entities.forEach((entity) => {
-                entity.setAttribute("visible", visible);
-              });
-            } else if (visible) {
-              button.classList.remove("selected");
-              entities.forEach((entity) => {
-                entity.setAttribute("visible", false);
-              });
-              visibles[i] = false;
-            }
-          });
+        ws.onopen = function (event) {
+          console.log("WebSocket 연결이 열렸습니다.");
         };
 
-        list.forEach((item, index) => {
-          const button = document.querySelector("#" + item);
-          button.addEventListener("click", () => {
-            toggleVisibility(index);
-          });
+        ws.onmessage = function (event) {
+          const frameBase64 = event.data;
+          const img = document.createElement("img");
+          img.src = "data:image/jpeg;base64," + frameBase64;
+          dynamicImage.setAttribute("src", img.src);
+        };
+
+        ws.onerror = function (event) {
+          console.error("WebSocket error observed:", event);
+        };
+      });
+
+      list.forEach((item, index) => {
+        const button = document.querySelector("#" + item);
+        button.addEventListener("click", () => {
+          toggleVisibility(index);
         });
       });
     </script>
@@ -116,8 +109,8 @@
       }
       .canvas-container canvas {
         border: solid 5px;
-        width: 105px;
-        height: 105px;
+        width: 103px;
+        height: 103px;
         object-fit: cover;
         cursor: pointer;
         display: block;
@@ -366,25 +359,6 @@
         }
         animate();
       });
-    </script>
-    <script>
-      const dynamicImage = document.getElementById("dynamic-image");
-      const ws = new WebSocket("ws://127.0.0.1:8000/ws");
-
-      ws.onopen = function (event) {
-        console.log("WebSocket 연결이 열렸습니다.");
-      };
-
-      ws.onmessage = function (event) {
-        const frameBase64 = event.data;
-        const img = document.createElement("img");
-        img.src = "data:image/jpeg;base64," + frameBase64;
-        dynamicImage.setAttribute("src", img.src);
-      };
-
-      ws.onerror = function (event) {
-        console.error("WebSocket error observed:", event);
-      };
     </script>
   </body>
 </html>
