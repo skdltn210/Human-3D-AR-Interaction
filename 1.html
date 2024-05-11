@@ -7,6 +7,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const list = ["japaneseMask", "jokerMask", "guy_fawkesMask", "gorillaFace", "tutankhamunMask", "parasyte"];
         const visibles = [false, false, false, false, false, false];
+        let ws;
 
         const toggleVisibility = (index) => {
           visibles[index] = !visibles[index];
@@ -14,11 +15,11 @@
             const button = document.querySelector("#" + list[i]);
             const entities = document.querySelectorAll("." + list[i] + "-entity");
             if (i === index) {
-              button.classList.toggle("selected");
+              button.classList.toggle("selected", visibles[i]);
               entities.forEach((entity) => {
-                entity.setAttribute("visible", visible);
+                entity.setAttribute("visible", visibles[i]);
               });
-            } else if (visible) {
+            } else {
               button.classList.remove("selected");
               entities.forEach((entity) => {
                 entity.setAttribute("visible", false);
@@ -31,37 +32,32 @@
         const canvasContainers = document.querySelectorAll(".canvas-container");
         canvasContainers.forEach((container, index) => {
           container.addEventListener("click", function () {
-            // Check if the clicked container is already selected
-            const isSelected = container.classList.contains("selected");
-            // Remove selected class from all canvas containers
-            canvasContainers.forEach((c) => c.classList.remove("selected"));
-            // Add selected class to the clicked container if it's not already selected
-            if (!isSelected) {
-              container.classList.add("selected");
-            }
+            // Toggle selected class on the clicked container
+            container.classList.toggle("selected");
 
             // Toggle visibility logic here
             toggleVisibility(index);
 
-            // Send index to server via WebSocket
-            const ws = new WebSocket("ws://127.0.0.1:8000/ws");
-            ws.onopen = function (event) {
-              console.log("WebSocket 연결이 열렸습니다.");
+            // Open WebSocket connection if not already open
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+              ws = new WebSocket("ws://127.0.0.1:8000/ws");
+              ws.onopen = function (event) {
+                console.log("WebSocket 연결이 열렸습니다.");
+                // Send the index to the server
+                ws.send(container.classList.contains("selected") ? index.toString() : "-1");
+              };
+              ws.onerror = function (event) {
+                console.error("WebSocket error observed:", event);
+              };
+            } else {
               // Send the index to the server
-              ws.send(index.toString());
-            };
-
-            ws.onerror = function (event) {
-              console.error("WebSocket error observed:", event);
-            };
-
-            // Close the WebSocket connection after sending the index
-            ws.close();
+              ws.send(container.classList.contains("selected") ? index.toString() : "-1");
+            }
           });
         });
 
         const dynamicImage = document.getElementById("dynamic-image");
-        const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+        ws = new WebSocket("ws://127.0.0.1:8000/ws");
 
         ws.onopen = function (event) {
           console.log("WebSocket 연결이 열렸습니다.");

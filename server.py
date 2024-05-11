@@ -4,6 +4,7 @@ import base64
 import logging
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import StreamingResponse
+from fastapi.websockets import WebSocketDisconnect 
 
 app = FastAPI()
 
@@ -53,7 +54,14 @@ async def send_video(websocket: WebSocket):
 async def websocket_endpoint(websocket: WebSocket):
     logger.info("WebSocket 연결이 성공적으로 수립되었습니다.")
     await websocket.accept()
-    await send_video(websocket)
+    try:
+        while True:
+            # 클라이언트로부터 메시지 수신
+            index_str = await websocket.receive_text()
+            index = int(index_str)
+            logger.info(f"받은 인덱스: {index}")
+    except WebSocketDisconnect:
+        logger.info("WebSocket 연결이 종료되었습니다.")
 
 if __name__ == "__main__":
     import uvicorn
