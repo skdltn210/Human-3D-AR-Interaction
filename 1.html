@@ -280,6 +280,7 @@
 
       let loader = new GLTFLoader();
       loader.load("public/japanese_mask.glb", (gltf) => {
+        gltf.scene.rotation.y = Math.PI;
         scene.add(gltf.scene);
         function animate() {
           requestAnimationFrame(animate);
