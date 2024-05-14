@@ -8,6 +8,7 @@ import tensorflow_hub as hub
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import StreamingResponse
 from fastapi.websockets import WebSocketDisconnect
+from functools import lru_cache
 
 app = FastAPI()
 
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 style_transfer_model = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
 # 스타일 이미지 로드 함수
+@lru_cache(maxsize=8)
 def load_style_image(image_path):
     img = cv2.imread(image_path)
     if img is not None:
