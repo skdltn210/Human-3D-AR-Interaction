@@ -7,7 +7,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import StreamingResponse
-from fastapi.websockets import WebSocketDisconnect 
+from fastapi.websockets import WebSocketDisconnect
 
 app = FastAPI()
 
@@ -29,7 +29,7 @@ def load_style_image(image_path):
     else:
         logger.error(f"스타일 이미지 로드 실패: {image_path}")
         return None
-    
+
 # 스타일 전이 적용 함수
 def apply_style_transfer(frame, style_image, model):
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -65,23 +65,6 @@ async def send_video(websocket: WebSocket):
         exit()
 
     while True:
-        # 클라이언트로부터 메시지 수신
-        index_str = await websocket.receive_text()
-        index = int(index_str)
-        logger.info(f"받은 인덱스: {index}")
-
-        # 스타일 전이 적용 여부 확인
-        if index != current_style_index:
-            current_style_index = index
-            if current_style_index == -1:
-                logger.info("스타일 전이를 적용하지 않습니다.")
-                style_image = None
-            else:
-                style_image = style_images.get(current_style_index)
-                if style_image is None:
-                    logger.error(f"인덱스 {current_style_index}에 해당하는 스타일 이미지가 없습니다.")
-                    continue
-
         # 프레임 읽기
         ret, frame = cap.read()
 
@@ -91,8 +74,13 @@ async def send_video(websocket: WebSocket):
             break
         
         # 스타일 전이 적용
-        if style_image is not None:
-            stylized_frame = apply_style_transfer(frame, style_image, style_transfer_model)
+        if current_style_index != -1:
+            style_image = style_images.get(current_style_index)
+            if style_image is not None:
+                stylized_frame = apply_style_transfer(frame, style_image, style_transfer_model)
+            else:
+                logger.error(f"인덱스 {current_style_index}에 해당하는 스타일 이미지가 없습니다.")
+                stylized_frame = frame
         else:
             stylized_frame = frame
 
@@ -101,7 +89,7 @@ async def send_video(websocket: WebSocket):
 
         # JPEG 형식으로 인코딩
         _, buffer = cv2.imencode('.jpg', flipped_frame)
-
+        
         # base64로 인코딩
         frame_base64 = base64.b64encode(buffer).decode('utf-8')
 
@@ -115,13 +103,32 @@ async def send_video(websocket: WebSocket):
         # 30ms 대기 후 다음 프레임 읽기
         await asyncio.sleep(0.03)
 
+async def receive_index(websocket: WebSocket):
+    global current_style_index
+    while True:
+        try:
+            # 클라이언트로부터 메시지 수신
+            index_str = await websocket.receive_text()
+            index = int(index_str)
+            logger.info(f"받은 인덱스: {index}")
+            current_style_index = index
+        except WebSocketDisconnect:
+            logger.info("WebSocket 연결이 종료되었습니다.")
+            break
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     logger.info("WebSocket 연결이 성공적으로 수립되었습니다.")
     await websocket.accept()
+    
+    # 영상 전송 코루틴 실행
+    video_task = asyncio.create_task(send_video(websocket))
+    
+    # 인덱스 수신 코루틴 실행
+    index_task = asyncio.create_task(receive_index(websocket))
+    
     try:
-        # send_video 코루틴 실행
-        await send_video(websocket)
+        await asyncio.gather(video_task, index_task)
     except WebSocketDisconnect:
         logger.info("WebSocket 연결이 종료되었습니다.")
 
