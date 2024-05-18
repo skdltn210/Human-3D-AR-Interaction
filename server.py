@@ -43,7 +43,9 @@ def apply_style_transfer(frame, style_image, model):
     return stylized_image
 
 # 웹캠 캡처 객체 생성
-cap = cv2.VideoCapture(1)
+
+# 윈도우 0, 맥 1
+cap = cv2.VideoCapture(0)
 
 # 웹캠 해상도 및 FPS 설정
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1440) 
@@ -51,6 +53,7 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 cap.set(cv2.CAP_PROP_FPS, 15)  
 
 # 초기 스타일 이미지 로드
+#
 style_images = {
     -1: None,
     0: load_style_image('styles/img.jpg'),
