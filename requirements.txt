@@ -1,0 +1,89 @@
+absl-py==2.1.0
+aioice==0.9.0
+aiortc==1.8.0
+annotated-types @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_1fa2djihwb/croot/annotated-types_1709542925772/work
+anyio @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_a17a7759g2/croot/anyio_1706220182417/work
+astunparse==1.6.3
+av==11.0.0
+certifi==2024.2.2
+cffi==1.16.0
+charset-normalizer==3.3.2
+click==8.1.7
+colorlog==6.8.2
+cryptography==42.0.7
+Cython==3.0.10
+dnspython==2.6.1
+email_validator==2.1.1
+exceptiongroup @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_b2258scr33/croot/exceptiongroup_1706031391815/work
+fastapi @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_ab51gv9t42/croot/fastapi_1693295410365/work
+fastapi-cli==0.0.3
+flatbuffers==24.3.25
+gast==0.5.4
+google-crc32c==1.5.0
+google-pasta==0.2.0
+grpcio==1.63.0
+h11==0.14.0
+h5py==3.11.0
+html2image==2.0.4.3
+httpcore==1.0.5
+httptools==0.6.1
+httpx==0.27.0
+idna @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_a12xpo84t2/croot/idna_1714398852854/work
+ifaddr==0.2.0
+importlib_metadata==7.1.0
+Jinja2==3.1.4
+keras==3.3.3
+libclang==18.1.1
+Markdown==3.6
+markdown-it-py==3.0.0
+MarkupSafe==2.1.5
+mdurl==0.1.2
+ml-dtypes==0.3.2
+namex==0.0.8
+numpy==1.26.4
+opencv-python==4.9.0.80
+opt-einsum==3.3.0
+optree==0.11.0
+orjson==3.10.3
+packaging==24.0
+protobuf==4.25.3
+pycparser==2.22
+pydantic @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_0ai8cvgm2c/croot/pydantic_1709577986211/work
+pydantic_core @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_06smitnu98/croot/pydantic-core_1709573985903/work
+pyee==11.1.0
+Pygments==2.18.0
+pylibsrtp==0.10.0
+pyOpenSSL==24.1.0
+python-dotenv==1.0.1
+python-multipart==0.0.9
+PyYAML==6.0.1
+requests==2.31.0
+rich==13.7.1
+shellingham==1.5.4
+simplejpeg==1.7.2
+six==1.16.0
+sniffio @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_1573pknjrg/croot/sniffio_1705431298885/work
+starlette @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_7feeoam7sd/croot/starlette-recipe_1692980426894/work
+tensorboard==2.16.2
+tensorboard-data-server==0.7.2
+tensorflow==2.16.1
+tensorflow-hub==0.16.1
+tensorflow-io-gcs-filesystem==0.37.0
+tensorflow-macos==2.16.1
+tensorflow-metal==1.1.0
+termcolor==2.4.0
+tf_keras==2.16.0
+tqdm==4.66.4
+typer==0.12.3
+typing_extensions==4.11.0
+ujson==5.9.0
+urllib3==2.2.1
+uvicorn==0.29.0
+uvloop==0.19.0
+vidgear==0.3.2
+watchfiles==0.21.0
+websocket-client==1.8.0
+websockets==12.0
+Werkzeug==3.0.3
+wrapt==1.16.0
+zipp==3.18.1

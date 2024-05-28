@@ -53,7 +53,11 @@ cap.set(cv2.CAP_PROP_FPS, 15)
 # 초기 스타일 이미지 로드
 style_images = {
     -1: None,
-    0: load_style_image('styles/img.jpg'),
+    0: load_style_image('styles/0.jpeg'),
+    1: load_style_image('styles/1.jpeg'),
+    2: load_style_image('styles/2.jpeg'),
+    3: load_style_image('styles/3.jpeg'),
+    4: load_style_image('styles/4.jpeg'),
 }
 
 global current_style_index

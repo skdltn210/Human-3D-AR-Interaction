@@ -5,8 +5,8 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const list = ["japaneseMask", "jokerMask", "guy_fawkesMask", "gorillaFace", "tutankhamunMask", "parasyte"];
-        const visibles = [false, false, false, false, false, false];
+        const list = ["japaneseMask", "jokerMask", "guy_fawkesMask", "gorillaFace", "tutankhamunMask"];
+        const visibles = [false, false, false, false, false];
         let ws;
 
         const toggleVisibility = (index) => {
@@ -164,9 +164,6 @@
         </div>
         <div class="canvas-container" id="tutankhamunMask">
           <canvas id="canvas5"></canvas>
-        </div>
-        <div class="canvas-container" id="parasyte">
-          <canvas id="canvas6"></canvas>
         </div>
       </div>
       <img id="dynamic-image" />
