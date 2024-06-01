@@ -71,7 +71,7 @@ The following images were chosen as the styles to be applied:
 
 Here is the video with the applied style transfer:
 
-- `./images/7.gif`
+- ![movie](https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/27797d86-980a-4f85-9693-deea228b2445)
 
 
 
