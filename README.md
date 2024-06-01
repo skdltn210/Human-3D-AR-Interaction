@@ -41,20 +41,19 @@ Both the client and the server are using the same webcam to capture video. When 
 Face recognition is used to apply these 3D models as masks on faces.
 
 <p align="center">
-  <img src="./images/8.png" align="center" width="18%">
-  <img src="./images/9.png" align="center" width="18%">
-  <img src="./images/10.png" align="center" width="18%">
-  <img src="./images/11.png" align="center" width="18%">
-  <img src="./images/12.png" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/4ece3eaa-320f-4463-9ddf-fdcaeebed641" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/df21214f-ca3a-49d9-926a-81d09e95c082" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/2422d58b-b588-4f8c-868c-81d957fcb856" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/8e31a440-e433-47df-b305-f76f96b40569" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/7fd7e9cb-203b-4378-872b-6c950d89ddfd" align="center" width="18%">
 </p>
 
 This is the result of applying the masks to faces.
 
 <p align="center">
-  <img src="./images/5.png" align="center" width="18%">
-  <img src="./images/6.png" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/44d20bfa-91a8-4fd0-b6c2-35c9dd3bd587" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/49d8069e-4d8e-4f6a-8c61-01a8fac8ef8b" align="center" width="18%">
 </p>
-
 
 ### Style Transfer
 I have utilized models within TensorFlow to transform the background style of a video.
@@ -62,13 +61,12 @@ I have utilized models within TensorFlow to transform the background style of a 
 The following images were chosen as the styles to be applied:
 
 <p align="center">
-  <img src="./images/0.jpeg" align="center" width="18%">
-  <img src="./images/1.jpeg" align="center" width="18%">
-  <img src="./images/2.jpeg" align="center" width="18%">
-  <img src="./images/3.jpeg" align="center" width="18%">
-  <img src="./images/4.jpeg" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/5c660015-0956-42ab-932f-a69b6f766217" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/a3ef4bca-ac46-4ca5-ac23-42b89aa2f6dd" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/39c5c5ad-0986-44ff-9a6d-b9b770b0ff03" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/766fc3b4-1a4c-43ef-bf41-1ac34a84c98d" align="center" width="18%">
+<img src="https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/c1e3fdba-7dc1-4b73-92fa-01a1f2691021" align="center" width="18%">
 </p>
-
 Here is the video with the applied style transfer:
 
 - ![movie](https://github.com/skdltn210/Human-3D-AR-Interaction/assets/101277197/27797d86-980a-4f85-9693-deea228b2445)
