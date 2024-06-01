@@ -35,7 +35,7 @@ Both the client and the server are using the same webcam to capture video. When 
 
 ## Limitations
 
-For now, this project only works on Mac. I attempted to try it on a Windows environment with a better GPU. However, unlike on Mac, Windows didn't allow me to use one webcam across multiple applications. So, I tried to solve this by using a virtual webcam or implementing WebRTC technology, or by having the server process and transmit the video without using the webcam on the client side. However, due to time constraints, I couldn't finish it.
+For now, this project only works on Mac. I attempted to try it on a Windows environment with a better GPU. However, unlike on Mac, Windows didn't allow me to use one webcam across multiple applications. So, I tried to solve this by using a virtual webcam or implementing [WebRTC](https://webrtc.org/), or by having the server process and transmit the video without using the webcam on the client side. However, due to time constraints, I couldn't finish it.
 
 ## Future Enhancements
 
