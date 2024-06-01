@@ -49,7 +49,7 @@ MIT. see License.txt for more information.
 
 server
 * written in [Python3](https://www.python.org/)
-* [OpenCV](https://opencv.org/) process video
+* [OpenCV](https://opencv.org/) for process video
 * [FastAPI](https://fastapi.tiangolo.com/) for video transmission
 * [Tensorflow](https://tensorflow.org/) for style-transfer
 
