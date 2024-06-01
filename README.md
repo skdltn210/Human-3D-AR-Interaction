@@ -35,13 +35,14 @@ Both the client and the server are using the same webcam to capture video. When 
 
 ## Components
 
+
 ### 3D Models
 
 Face recognition is used to apply these 3D models as masks on faces.
 
 <p align="center">
-  <img src="./images/8.png" align="center" width="50%">
-  <img src="./images/9.png" align="center" width="50%">
+  <img src="./images/8.png" align="center" width="18%">
+  <img src="./images/9.png" align="center" width="18%">
   <img src="./images/10.png" align="center" width="18%">
   <img src="./images/11.png" align="center" width="18%">
   <img src="./images/12.png" align="center" width="18%">
@@ -70,8 +71,7 @@ The following images were chosen as the styles to be applied:
 
 Here is the video with the applied style transfer:
 
-- `./images/7.mp4`
-
+- `./images/7.gif`
 
 
 
