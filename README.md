@@ -40,18 +40,18 @@ Both the client and the server are using the same webcam to capture video. When 
 Face recognition is used to apply these 3D models as masks on faces.
 
 <p align="center">
-  <img src="./images/5" align="center" width="50%">
-  <img src="./images/6" align="center" width="50%">
-  <img src="./images/10" align="center" width="18%">
-  <img src="./images/11" align="center" width="18%">
-  <img src="./images/12" align="center" width="18%">
+  <img src="./images/8.png" align="center" width="50%">
+  <img src="./images/9.png" align="center" width="50%">
+  <img src="./images/10.png" align="center" width="18%">
+  <img src="./images/11.png" align="center" width="18%">
+  <img src="./images/12.png" align="center" width="18%">
 </p>
 
 This is the result of applying the masks to faces.
 
 <p align="center">
-  <img src="./images/8" align="center" width="18%">
-  <img src="./images/9" align="center" width="18%">
+  <img src="./images/5.png" align="center" width="18%">
+  <img src="./images/6.png" align="center" width="18%">
 </p>
 
 
@@ -61,16 +61,16 @@ I have utilized models within TensorFlow to transform the background style of a 
 The following images were chosen as the styles to be applied:
 
 <p align="center">
-  <img src="./images/0" align="center" width="18%">
-  <img src="./images/1" align="center" width="18%">
-  <img src="./images/2" align="center" width="18%">
-  <img src="./images/3" align="center" width="18%">
-  <img src="./images/4" align="center" width="18%">
+  <img src="./images/0.jpeg" align="center" width="18%">
+  <img src="./images/1.jpeg" align="center" width="18%">
+  <img src="./images/2.jpeg" align="center" width="18%">
+  <img src="./images/3.jpeg" align="center" width="18%">
+  <img src="./images/4.jpeg" align="center" width="18%">
 </p>
 
 Here is the video with the applied style transfer:
 
-- `./images/7`
+- `./images/7.mp4`
 
 
 
