@@ -33,6 +33,48 @@ You need 2 terminals, and run the following in each terminal respectively.
 
 Both the client and the server are using the same webcam to capture video. When a rotating 3D model is clicked on the client side, it gets applied over the face in the browser, and the corresponding index of that model is sent to the server. The server captures the video with the applied 3D model and applies style transfer to the video corresponding to that index. Then, it sends the processed video back to the client. The client places the received video underneath the 3D model.
 
+## Components
+
+### 3D Models
+
+Face recognition is used to apply these 3D models as masks on faces.
+
+<p align="center">
+  <img src="./images/5" align="center" width="50%">
+  <img src="./images/6" align="center" width="50%">
+  <img src="./images/10" align="center" width="18%">
+  <img src="./images/11" align="center" width="18%">
+  <img src="./images/12" align="center" width="18%">
+</p>
+
+This is the result of applying the masks to faces.
+
+<p align="center">
+  <img src="./images/8" align="center" width="18%">
+  <img src="./images/9" align="center" width="18%">
+</p>
+
+
+### Style Transfer
+I have utilized models within TensorFlow to transform the background style of a video.
+
+The following images were chosen as the styles to be applied:
+
+<p align="center">
+  <img src="./images/0" align="center" width="18%">
+  <img src="./images/1" align="center" width="18%">
+  <img src="./images/2" align="center" width="18%">
+  <img src="./images/3" align="center" width="18%">
+  <img src="./images/4" align="center" width="18%">
+</p>
+
+Here is the video with the applied style transfer:
+
+- `./images/7`
+
+
+
+
 ## Limitations
 
 For now, this project only works on Mac. I attempted to try it on a Windows environment with a better GPU. However, unlike on Mac, Windows didn't allow me to use one webcam across multiple applications. So, I tried to solve this by using a virtual webcam or implementing [WebRTC](https://webrtc.org/), or by having the server process and transmit the video without using the webcam on the client side. However, due to time constraints, I couldn't finish it.
