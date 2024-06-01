@@ -5,6 +5,7 @@ import logging
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
+import shutil
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import StreamingResponse
 from fastapi.websockets import WebSocketDisconnect
@@ -15,6 +16,9 @@ app = FastAPI()
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+# 캐시 디렉토리 삭제
+shutil.rmtree('/var/folders/w5/y9pwypm173b193xm1h1tmsbr0000gn/T/tfhub_modules')
 
 # 스타일 전이 모델 로드
 style_transfer_model = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
