@@ -43,7 +43,7 @@ With a more powerful GPU and more realistic models and images, this could be pra
 
 ## License
 
-MIT
+MIT. see License.txt for more information.
 
 ## Dependences
 
